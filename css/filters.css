@@ -1,0 +1,42 @@
+textarea {
+    font-size: 30px;
+    font-family: Arial;
+    outline: none;
+    border: 1px solid gray;
+    resize: none;
+    height: 50%;
+    width: 100%;
+    text-align: center;
+
+    color: green;
+    filter: blur(6px);
+
+    transition: filter 0.5s;
+}
+
+textarea:focus {
+    filter: none;
+}
+
+.tooltip {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    backdrop-filter: blur(4px);
+    text-align: center;
+    font-size: 40px;
+    color: black;
+    top: 25%;
+    left: 50%;
+    background-color: #00000002;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+img {
+    box-shadow: 2px 2px 6px black;
+    /*filter: drop-shadow(2px 2px 6px black);*/
+}
+

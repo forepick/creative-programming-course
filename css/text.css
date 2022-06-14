@@ -1,0 +1,61 @@
+h1 {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 180px;
+
+
+    color: rebeccapurple;
+    text-shadow: 0 32px 16px #00000044;
+
+    position: relative;
+
+    transform: skewX(-30deg);
+
+}
+h1:before {
+    content: attr(data-text);
+    display: block;
+    position: absolute;
+    top: 0px;
+
+    background-image: linear-gradient(#032d50 25%, #00a1ef 35%, white 50%, #20125f 50%, #8313e7 55%, #ff61af 75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px black;
+    text-shadow: none;
+    pointer-events: none;
+}
+
+
+.wrapper {
+    --blur: 5;
+
+    font-size: 5rem;
+    margin:1rem 0;
+    position:relative;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    border-radius:1rem;
+    padding:1rem 0;
+}
+.blurred-wrapper {
+
+    position: absolute;
+    filter: blur(1rem);
+
+    transform: scale(
+            var(--blur),
+            0.001
+    )
+
+}
+
+.blurred {
+
+    transform: scale(
+            calc( 1/var(--blur) ),
+            1000
+    )
+
+}
