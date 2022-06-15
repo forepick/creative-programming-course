@@ -1,0 +1,104 @@
+.wrapper_3d {
+    width: 400px;
+    height: 300px;
+    background-color: #d3d3d3;
+    overflow: visible;
+    perspective: 700px;
+
+    position: relative;
+
+    display: inline-block;
+}
+.rotator {
+    transform-style: preserve-3d;
+    background-color: yellow;
+    width: 150px;
+    height: 150px;
+
+    top: 40px;
+    left: 30px;
+    position: absolute;
+    transition: transform 0.5s;
+}
+.rotator:hover {
+    transform: rotateY(45deg);
+}
+
+.rotator h1 {
+}
+
+.side {
+    position: absolute;
+    height: 100%;
+    background-color: blue;
+    width: 40px;
+    top: 0;
+    transform: translateX(-20px) rotateY(90deg) translateX(20px);
+}
+.world_3d {
+    width: 100%;
+    height: 100%;
+    transform: rotateX(-40deg);
+    transform-style: preserve-3d;
+}
+
+.pivot {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+    animation: roll 3s linear infinite;
+}
+@keyframes roll {
+    0% {
+        transform: translate(-50%, -50%) rotateY(0deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotateY(180deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateY(360deg);
+    }
+}
+
+.cap {
+    background-color: #8888e7;
+    --size: 88px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(90deg) translateZ(75px);
+
+    background-image: url('/img/coke2.png');
+    background-size: 176px 176px;
+    background-position-y: 0px;
+}
+
+.wall {
+    height: 150px;
+    width: 30px;
+    background-color: blue;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center -43px;
+
+    background-image: url('/img/coke.jpeg');
+    background-size: 284px 150px;
+}
+
+
+@for $i from 1 through 10 {
+    $angle: 360 / 10;
+    $texture_pos: -($i - 1) * 0.1 * 284;
+    .wall:nth-child(#{$i}) {
+        transform: translate3d(-50%, -50%, 43px) rotateY(calc(#{$i} * #{$angle}deg));
+        background-position-x: #{$texture_pos}px;
+    }
+}

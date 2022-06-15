@@ -18,5 +18,24 @@
         </div>
         <div class='still'>Text in Motion</div>
     </div>
+
+    <div class="layered">
+        HAMBURGER
+    </div>
+
+    <div class="text3d_wrapper">
+        <div class="text3d" data-text="Nice one" contenteditable>
+            Nice One
+        </div>
+    </div>
+
+
+    <script>
+        $("[contenteditable]").on("input", e => {
+            let t = $(e.target);
+            t.attr("data-text", t.text());
+        })
+    </script>
 </body>
+
 </html>

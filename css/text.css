@@ -42,20 +42,85 @@ h1:before {
 .blurred-wrapper {
 
     position: absolute;
-    filter: blur(1rem);
-
-    transform: scale(
-            var(--blur),
-            0.001
-    )
+    filter: blur(10px);
+    transform: scale(var(--blur), 0.001)
 
 }
 
 .blurred {
+    transform: scale(calc( 1/var(--blur) ),1000);
+    opacity: 0.7;
+}
 
-    transform: scale(
-            calc( 1/var(--blur) ),
-            1000
-    )
+.layered {
+    --thickness: 3px;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 80px;
+    color: #faab3e;
+    /*-webkit-text-stroke: 1px black;*/
+    transform: skewX(-50deg) scaleY(0.8) translateX(30px);
+
+    transition: all 0.4s;
 
 }
+.layered:hover {
+    transform: skewX(-50deg) scaleY(0.8) translateX(30px) translate(calc(var(--thickness) * -2), calc(var(--thickness) * -2));
+    text-shadow:
+            var(--thickness) var(--thickness) 0 #a33815,
+            calc(var(--thickness) * 2) calc(var(--thickness) * 2) 0 #ffda01,
+            calc(var(--thickness) * 3) calc(var(--thickness) * 3) 0 #e81802,
+            calc(var(--thickness) * 4) calc(var(--thickness) * 4) 0 #a1d501,
+            calc(var(--thickness) * 5) calc(var(--thickness) * 5) 0 #faab3e,
+            calc(var(--thickness) * 10) calc(var(--thickness) * 10) 16px #00000033;
+}
+
+.text3d_wrapper {
+    width: 100%;
+    padding: 20px 20px 40px;
+    box-sizing: border-box;
+    background-color: #d9d9d9;
+}
+.text3d {
+    width: 100%;
+    --side-color: #e3e3e3;
+    --side-color2: #00c7c7;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 100px;
+    color: cyan;
+   -webkit-text-stroke: 10px cyan;
+
+    filter:
+            drop-shadow(0 1px var(--side-color2))
+            drop-shadow(0 2px var(--side-color2))
+            drop-shadow(0 3px var(--side-color2))
+            drop-shadow(0 4px var(--side-color2))
+            drop-shadow(0 10px 10px #0005)
+    ;
+
+    outline: none;
+}
+.text3d:before {
+    content: attr(data-text);
+    display: block;
+    position: absolute;
+
+    color: white;
+    text-shadow: 0 1px 0 var(--side-color),
+    0 2px 0 var(--side-color),
+    0 3px 0 var(--side-color),
+    0 4px 0 var(--side-color),
+    0 5px 0 var(--side-color),
+    0 6px 0 var(--side-color),
+    0 7px 0 var(--side-color),
+    0 7px 4px #00000077;
+
+    transform: translate(0px, -8px);
+
+    filter: none;
+
+    -webkit-text-stroke-width: 0;
+}
+
