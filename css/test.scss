@@ -1,0 +1,13 @@
+@function custom-shadow($n, $color)
+{
+  $box-shadow: '';
+  @for $i from 1 through $n {
+    $shadows: 'drop-shadow(' + $i +'px ' + $i + 'px 0 '+$color+')' ;
+    $box-shadow: $box-shadow + $shadows + ' ,';
+  }
+  @return str_slice(unquote($box-shadow), 0, str_length($box-shadow)-1) ;
+}
+
+.test {
+  filter: custom-shadow(10, gray);
+}
