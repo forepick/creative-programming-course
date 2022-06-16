@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snap Scroll</title>
+    <script src="/js/jquery.js"></script>
+    <style>
+      html, body {
+          margin: 0;
+          padding: 0;
+          overscroll-behavior: none;
+      }
+      .page {
+          height: 100vh;
+          border: 1px solid black;
+          box-sizing: border-box;
+      }
+      .grid {
+          display: flex;
+          flex-flow: row;
+          flex-wrap: wrap;
+          align-content: flex-start;
+      }
+      .cell {
+          height: 270px;
+          flex: 0 0 33.333%;
+          background-color: blue;
+
+          transition: transform 0.5s;
+
+          overflow: hidden;
+          position: relative;
+      }
+      .cell:nth-child(even){
+          background-color: red;
+      }
+      .cell:nth-child(odd).triggered{
+          transform: scale(0.1);
+      }
+      .cell.visible:nth-child(odd){
+          transform: none;
+      }
+
+      .hero {
+          background-color: white;
+          height: 80px;
+          width: 80px;
+          border-radius: 50%;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translate(-50%, -50%);
+
+      }
+
+    </style>
+</head>
+<body>
+  <div class="page">
+
+  </div>
+  <div class="page grid">
+    <div class="cell triggered"></div>
+    <div class="cell"></div>
+    <div class="cell triggered"></div>
+
+    <div class="cell"></div>
+    <div class="cell animated">
+        <div class="hero"></div>
+    </div>
+    <div class="cell"></div>
+
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+
+    <script>
+
+        let tr = [];
+        let intersectionStart = 0.3;
+        let intersectionEnd = 0.7;
+        for (let i = intersectionStart; i <= intersectionEnd; i+=0.001) {
+            tr.push(i);
+        }
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                let $entry = $(entry.target);
+
+                if(entry.isIntersecting){
+                    if($entry.hasClass("triggered")){
+                        $entry.addClass("visible");
+                    } else {
+                        let ratio = (entry.intersectionRatio - intersectionStart)/ (intersectionEnd - intersectionStart)
+                        let hero = $(".hero", $entry);
+                        let x = $entry.width() * ratio;
+                        hero.css("transform", `translate(-50%, -50%) translateX(${x}px)`)
+                    }
+
+
+                } else {
+                    if($entry.hasClass("triggered")){
+                        $entry.removeClass("visible");
+                    }
+
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: "0px 0px",
+            threshold: tr
+
+        })
+
+        document.querySelectorAll(".triggered, .animated").forEach(e => {
+            observer.observe(e);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, shrink-to-fit=no" />
+
+    <link rel="stylesheet" type="text/css" href="/css/global.css" />
+    <script src="/js/jquery.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+
+            overscroll-behavior: none;
+        }
+
+        .page {
+            height: 100vh;
+            width: 100vw;
+            box-sizing: border-box;
+
+            background-size: 100% 100%;
+            background-attachment: fixed;
+
+            position: relative;
+
+            overflow: hidden;
+
+            text-align: center;
+            font-size: 200px;
+
+            color: white;
+        }
+        .page.one {
+            background-image: url('/img/bg1.webp');
+        }
+
+        .layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            top: 0;
+            left: 0;
+
+            padding-top: 45vh;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="page one" data-speed="0.25">
+        <div class="layer" data-speed="0.8" style="padding-top: 22vh; opacity: 0.2; color: #414141; font-size: 100px; filter: blur(4px);">
+            Horizon
+        </div>
+        <div class="layer" data-speed="0.6" style="padding-top: 30vh; left: -75px; opacity: 0.4; color: #7c7c7c; font-size: 125px; filter: blur(3px);">
+            Back
+        </div>
+        <div class="layer" data-speed="0.4" style="padding-top: 35vh; left: 100px; opacity: 0.6; color: #b6b6b6; font-size: 150px; filter: blur(2px);">
+            Center
+        </div>
+        <div class="layer" data-speed="0.2" style="padding-top: 45vh; left: -230px; opacity: 0.8; color: #e0e0e0; font-size: 175px; filter: blur(1px);">
+            Closer
+        </div>
+        <div class="layer" data-speed="0" style="padding-top: 50vh; left: 200px; color: white;">
+            Front
+        </div>
+    </div>
+    <div class="page" data-speed="0.25"></div>
+
+    <script>
+
+        let doc = $(document);
+        let layers = $("[data-speed]");
+        let maxScroll = doc.height() - $(window).height();
+
+        let pageOne = $(".page.one");
+
+        doc.on("scroll", e => {
+            layers.map((i,l) => {
+                let $l = $(l);
+                let speed = parseFloat($l.attr("data-speed"));
+
+                if($l.hasClass("page")){
+                    // moving background
+                    $l.css("background-position-y", -doc.scrollTop() * speed)
+                } else if($l.hasClass("layer")){
+                    // moving element
+                    $l.css("transform", `translateY(${doc.scrollTop() * speed}px)`);
+                }
+            })
+
+        })
+    </script>
+</body>
+</html>
