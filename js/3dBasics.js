@@ -63,7 +63,8 @@ let setupScene = async () => {
     let mat = new THREE.MeshStandardMaterial({
         color: 0xFFFFFF,
         envMap: envCube,
-        reflectivity: 0.9,
+        reflectivity: 0.5,
+        refractionRatio: 0.98,
         metalness: 1,
         roughness: 0.1
     });
@@ -88,8 +89,9 @@ let setupControls = () => {
 }
 
 let render = function(now){
-    renderer.render(scene, camera);
     cube.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
 }
 
 
